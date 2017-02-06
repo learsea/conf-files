@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<localRepository>D:/apache-maven-3.3.1/repository</localRepository>
+
+	<pluginGroups>
+	</pluginGroups>
+
+	<proxies>
+	</proxies>
+
+	<servers>
+		<!-- 私服用户名和密码 -->
+		<server>
+			<id>nexus</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+	</servers>
+
+	<mirrors>
+		<mirror>
+			<!-- id是mirror的唯一标识 -->
+			<id>google-maven-central</id>
+			<!-- name是mirror的描述 -->
+			<name>Google Maven Central</name>
+			<!-- mirror代表该镜像要替换哪个repository的url。查找某个repository时，如果repository的id在mirrorOf中找到，则返回mirrorOf的url，否则返回原repository的url -->
+			<mirrorOf>central</mirrorOf>
+			<!-- 将repository中的central镜像url替换为谷歌提供的地址 -->
+			<url>https://maven-central.storage.googleapis.com</url>
+		</mirror>
+	</mirrors>
+
+	<profiles>
+		<!-- 设置jdk版本 -->
+		<profile>
+			<id>jdk-1.7</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<jdk>1.7</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.source>1.7</maven.compiler.source>
+				<maven.compiler.target>1.7</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
+			</properties>
+		</profile>
+		<!-- 默认情况下，远程依赖库使用中央仓库(central)和公司的第三方库，插件库使用中央仓库(central) -->
+		<profile>
+			<id>repo</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>nexus</id>
+					<url>http://120.25.62.99:8081/nexus/content/repositories/thirdparty/</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+</settings>
